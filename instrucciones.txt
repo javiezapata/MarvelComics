@@ -1,0 +1,78 @@
+Manual para ejecutar el proyecto de cómics
+
+Requisitos previos:
+Antes de comenzar, asegúrate de tener instalados los siguientes programas en tu máquina:
+- Node.js: https://nodejs.org/
+- npm: https://www.npmjs.com/
+- PostgreSQL: https://www.postgresql.org/
+- Visual Studio Code: https://code.visualstudio.com/
+
+Pasos para ejecutar el proyecto:
+
+1. Clonar el repositorio:
+   Abre una terminal y ejecuta el siguiente comando para clonar el repositorio:
+   
+   git clone [URL_DEL_REPOSITORIO]
+
+2. Navegar al directorio del proyecto:
+   
+   cd [NOMBRE_DEL_DIRECTORIO]
+
+3. Instalar las dependencias del frontend (Angular):
+   
+   cd frontend
+   npm install
+
+4. Instalar las dependencias del backend (Node.js):
+   Vuelve al directorio raíz del proyecto y navega al backend:
+   
+   cd ../backend
+   npm install
+
+5. Configurar la base de datos:
+   - Abre PostgreSQL y crea una base de datos llamada `comics_db` (puedes usar pgAdmin o la línea de comandos de PostgreSQL).
+   - Ejecuta las siguientes consultas SQL para crear las tablas necesarias:
+   
+     CREATE TABLE users (
+       id SERIAL PRIMARY KEY,
+       username VARCHAR(255) UNIQUE NOT NULL,
+       password VARCHAR(255) NOT NULL,
+       email VARCHAR(255) UNIQUE NOT NULL,
+       identificacion BIGINT NOT NULL
+     );
+     
+     CREATE TABLE favorites (
+       user_id INTEGER NOT NULL REFERENCES users(id),
+       comic_id INTEGER NOT NULL,
+       PRIMARY KEY (user_id, comic_id)
+     );
+
+6. Configurar el archivo .env:
+   - En el directorio `backend`, crea un archivo llamado `.env` y agrega las siguientes líneas, reemplazando con tus propios datos:
+   
+     DB_NAME='comics_db'
+     DB_USER='postgres'
+     DB_PASSWORD='1997'
+     DB_HOST='localhost'
+     DB_PORT=5432
+     JWT_SECRET='i=7a=@gq+s%ezv3%kp!vwbs+8(858_4vo-jhyxtgy@40l=azs)'
+
+7. Iniciar el backend:
+   - Desde el directorio `backend`, ejecuta el siguiente comando:
+   
+     npm start
+
+   -Asignar las varibles correspondientes en el archivo enviroment
+
+8. Iniciar el frontend:
+   - Abre una nueva terminal, navega al directorio `frontend` y ejecuta el siguiente comando:
+   
+     ng serve
+
+9. Acceder a la aplicación:
+   - Abre tu navegador web y ve a `http://localhost:4200` para acceder a la aplicación.
+
+Notas adicionales:
+- Asegúrate de tener PostgreSQL corriendo en tu máquina antes de iniciar el backend.
+- Si encuentras problemas con las dependencias, intenta correr `npm install` nuevamente en los directorios `frontend` y `backend`.
+
